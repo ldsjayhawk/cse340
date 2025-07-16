@@ -1,9 +1,14 @@
 @media screen and (min-width: 600px) {
-    nav {
+  body {
+    width: 100%;
+    margin: 0 auto;
+    border: 3rem black solid;
+  }
+  
+  nav {
 		display: flex;
 		flex-direction: row;
 		padding: 0;
-		max-width: 100%;
 	}
 
 	nav li {
@@ -20,13 +25,34 @@
       align-content: center;
   }
 
+  .action {
+    top: 35%;
+    left: 25%;
+    width: 15rem;
+
+  }
+
   .container {
     display: flex;
     flex-direction: row-reverse;
+    /* width: 90%; */
+    gap: 1rem;
   }
-  
+
+
   .upgrades,
   .reviews {
-    flex: 1
+    flex: 1;
+    padding: 2rem;
+  }
+
+  .reviews { 
+    padding-top: 1.5rem;
+  }
+
+  .upgrades img {
+    max-width: 100%;
   }
 }
+
+
