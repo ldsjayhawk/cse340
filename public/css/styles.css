@@ -194,6 +194,43 @@ ul.upgrade-list {
   padding: .5rem;
 }
 
+#inv-display {
+  display: grid;
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-content: space-evenly;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+#inv-display li {
+  list-style: none;
+  text-align: center;
+  background-color: #0C1733;
+}
+
+#inv-display img {
+  padding: .625rem;
+  max-height: 125px;
+}
+
+#inv-display a {
+  text-decoration: none;
+  color: #F9B421;
+}
+
+#inv-display span {
+  color: #fff;
+}
+
+.namePrice {
+  padding: .5rem;
+}
+
+#inv-display a:hover {
+  color: #fff;
+}
+
 footer {
   padding: 10px;
   text-align: center;
