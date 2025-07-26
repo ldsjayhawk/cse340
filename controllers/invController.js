@@ -27,9 +27,6 @@ invCont.buildByVehicleId = async function (req, res, next) {
   const data = await invModel.getVehicleById(inv_id)
   const detail = await utilities.buildVehicleDetail(data)
 
-  if (!data || data.length === 0) {
-    return res.status(404).send("Vehicle not found")
-  }
   let nav = await utilities.getNav()
   const vehMake = data[0].inv_make
   const vehModel = data[0].inv_model
