@@ -25,13 +25,6 @@ async function getInventoryByClassificationId(classification_id) {
     console.error("getclassificationsbyid error " + error)
   }
 }
-
-// /* ***************************
-//  *  Get all vehicle data
-//  * ************************** */
-// async function getVehicles(){
-  //   return await pool.query("SELECT * FROM public.inventory ORDER BY inv_id")
-  // }
   
   /* ***************************
   *  Get all vehicles by inv_id
