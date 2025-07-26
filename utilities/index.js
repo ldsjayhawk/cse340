@@ -59,6 +59,43 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+/* **************************************
+* Build the vehicle detail view HTML
+* ************************************ */
+Util.buildVehicleDetail = async function(data){
+  let detail = ""
+  if(data.length > 0){
+    data.forEach(vehicle => { 
+      detail += '<div id="vehicle">'
+    
+      detail += '<div id="vehicle-image">'
+      detail += '<picture>'
+      detail += '<source media="(min-width: 700px)" srcset="' + vehicle.inv_image + '">'
+      detail += '<img src="' + vehicle.inv_image +'"'
+      +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model +'" width="400">'
+      detail += '</picture>'    
+      detail += '</div>'
+
+      detail += '<div id="vehicle-details">'
+      detail += '<h2>'
+      detail += vehicle.inv_make + ' ' + vehicle.inv_model + ' details' 
+      detail += '</h2>'
+      detail += `<p id="price"><strong>Price: $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</strong></p>`
+      detail += '<p><strong>Description: </strong>' + vehicle.inv_description + '<p>'
+      detail += '<p><strong>Color: </strong>' + vehicle.inv_color + '<p>'
+      detail += '<p><strong>Mileage: </strong>' + vehicle.inv_miles + '<p>'
+      detail += '</div>'
+
+      detail += '</div>'
+
+  })
+ } else { 
+    detail += '<p class="notice">Sorry, no matching vehicle could be found.</p>'
+  }
+  return detail
+}
+
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

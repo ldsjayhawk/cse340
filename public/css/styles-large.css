@@ -1,4 +1,4 @@
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 700px) {
   body {
     width: 100%;
     margin: 0 auto;
@@ -53,6 +53,26 @@
   .upgrades img {
     max-width: 100%;
   }
+
+  #vehicle {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  #vehicle-image,
+  #vehicle-details {
+    flex: 1;
+  }
+  
+  #vehicle h1, h2 {
+    padding: 1rem;
+  }
+  
+
+  
 }
+
 
 
