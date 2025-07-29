@@ -264,8 +264,22 @@ ul.upgrade-list {
   padding-top: 1rem;
 }
 
-
 footer {
   padding: 10px;
   text-align: center;
+}
+
+/* error link styling -- remove when unneccessary */
+#task3 a {
+  background-color: #F9B421;
+  padding: 2px;
+  color: #0C1733;
+  margin: 10px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+#task3 a:hover {
+  background-color: #0C1733;
+  color: #fff;
 }

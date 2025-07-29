@@ -95,6 +95,8 @@ Util.buildVehicleDetail = async function(data){
   return detail
 }
 
+module.exports = Util
+
 
 /* ****************************************
  * Middleware For Handling Errors
