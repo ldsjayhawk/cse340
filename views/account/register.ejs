@@ -1,0 +1,28 @@
+<h1><%= title %></h1>
+
+<%- messages() %>
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+ <form action = "/account/register" method = "post" class="register">
+    <fieldset>
+        <legend>User Registration</legend>
+            <label>First Name* <input type = "text" name = "account_firstname" id="account_firstname" required></label>
+            <label>Last Name* <input type = "text" name = "account_lastname" id="account_lastname" required></label>
+            <label>Email* <input type = "email" name = "account_email" id="account_email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z]$" required placeholder="Enter a valid email address"></label>
+            <label>Password* <input type = "password" name = "account_password" id="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"></label>
+            <div id="required">
+                <p>minimum 12 chars</p>
+                <p>(1 special character, 1 capital, 1 number)</p>
+            </div>
+        </fieldset>
+    <input type="submit" value="Register">
+</form>
+
+
+<!-- pattern="[A-Za-z0-9]{12,}" -->

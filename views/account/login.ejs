@@ -1,0 +1,19 @@
+<h1><%= title %></h1>
+
+<%- messages() %>
+
+ <form method="post" action = "/account/login" class="register">
+    <fieldset>
+        <legend>User Login</legend>
+            <label>Email* <input type = "email" name = "account_email" id="account_email" pattern="[a-zA-Z0-9._%+-]+@byui\.edu$" required></label>
+            <label>Password* <input type = "password" name = "account_password" id="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"></label>
+            <div id="required">
+                <p>minimum 12 chars</p>
+                <p>(1 special character, 1 capital, 1 number)</p>
+            </div>
+            <div id="register-link">
+                <p>No account? <a href="/account/register" title="register">Sign-up</a></p>
+            </div>
+    </fieldset>
+    <input type="submit" value="Login">
+</form>

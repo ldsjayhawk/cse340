@@ -96,6 +96,16 @@ body {
   font-family: var(--paragraph-font);
 }
 
+#messages,
+.notice {
+  padding: 1% 2%; 
+  margin: 1%;
+  background-color: #0C1733;
+  color: #F9B421;
+  font-weight: 700;
+  list-style: none;
+}
+
 .car {
   min-height: 16rem;
 }
@@ -282,4 +292,114 @@ footer {
 #task3 a:hover {
   background-color: #0C1733;
   color: #fff;
+}
+
+.form .register {
+  align-items: center;
+  margin: 0 auto;
+}
+
+.register label {
+  display: block;
+  padding-top: 1rem;
+  font-size: .75rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+#text {
+  color: #fff;
+}
+
+.register {
+  width: 100%;
+}
+
+.register fieldset {
+  border-radius: 5px;
+  background-color: #0C1733;
+  border: 2px #0C1733 solid;
+  margin: 1rem auto;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  width: 400px;
+  box-shadow: #999 10px 5px;
+}
+  
+.register legend {
+  background-color: #fff;
+  color: #0C1733;
+  font-weight: 700;
+  border: 2px #0C1733 solid;
+  border-radius: 5px;
+}
+
+.register label {
+  display: block;
+  font-size: 1rem;
+  padding: 0;
+}
+
+.register input[type="text"],
+.register input[type="email"],
+.register input[type="password"]
+{
+  display: block;
+  border-radius: 6px;
+  padding: .625rem;
+  border-left: solid 2px #000;
+  border-top: solid 2px #000;
+  box-sizing: border-box;
+  color: #000;
+  font-size: 1.25em;
+  font-weight: 700;
+  width: 20rem;
+  margin: .625rem;
+}
+
+.register input[type="submit"] {
+  padding: .5rem;
+  color: #fff;
+  background-color: #0C1733;
+  font-weight: 700;
+  border: 2px #0C1733 solid;
+  border-radius: 5px; 
+  font-weight: bold;
+  font-size: 1.25em;
+  border-radius: 6px;
+  max-width: 250px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: #999 10px 5px;
+  transition: width 2s height 2s;
+}
+
+.register input[type="submit"]:hover {
+  background-color: #F9B421;
+  color: #0C1733;
+  font-weight: 700;
+}
+
+#register-link a {
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.register p {
+  color: #fff;
+  text-align: center;
+}
+
+
+#register-link a:visited {
+  color: #fff;
+}
+
+#register-link a:hover {
+  color: #F9B421;
 }
