@@ -96,9 +96,10 @@ body {
   font-family: var(--paragraph-font);
 }
 
+.error-messages,
 #messages,
 .notice {
-  padding: 1% 2%; 
+  padding: .25rem; 
   margin: 1%;
   background-color: #0C1733;
   color: #F9B421;

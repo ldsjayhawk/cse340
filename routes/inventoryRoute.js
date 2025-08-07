@@ -5,8 +5,6 @@ const invController = require("../controllers/invController")
 const utilities = require("../utilities/")
 const invValidate = require('../utilities/inventory-validation')
 
-console.log("typeof addNewVehicle:", typeof invController.addNewVehicle) 
-
 // Route to build inventory by classification view
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 
@@ -29,17 +27,12 @@ router.post(
     utilities.handleErrors(invController.addNewClassification)
 );
 
-router.post("/debug-test", (req, res) => {
-  res.send("✅ Reached debug-test route")
-})
-
 // Route to process process adding vehicle
 router.post(
     "/add-vehicle", 
     invValidate.inventoryRules(),
     invValidate.checkVehData,
     utilities.handleErrors(invController.addNewVehicle)
-    // invController.addNewVehicle
 );
 
 // Delete

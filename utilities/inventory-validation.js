@@ -1,5 +1,6 @@
 const utilities = require(".")
   const { body, validationResult } = require("express-validator")
+  const invModel = require("../models/inventory-model")
   const validate = {}
 
 
@@ -12,11 +13,32 @@ const utilities = require(".")
       body("classification_name")
         .trim()
         .escape()
-        .notEmpty()
-        .isLength({ min: 1 })
-        .withMessage("Please provide a classification name."), // on error this message is sent.
+        .notEmpty().withMessage("Please provide a classification name.")
+        .isLength({ min: 1 }).withMessage("Classification name must contain at least 1 character.")
+        .matches(/^[A-Za-z]+$/).withMessage("Classification name must not contain spaces, numbers or symbols.")
     ]
     }
+
+  /* ******************************
+ * Check data and return errors or continue to add classification
+ * ***************************** */
+validate.checkClassData = async (req, res, next) => {
+  const { classification_name } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    errors = errors.array()
+    let nav = await utilities.getNav()
+    res.render("./inventory/add-classification", {
+      errors,
+      title: "Add Classification",
+      nav,
+      classification_name
+    })
+    return
+  }
+  next()
+}
 
   /*  **********************************
   *  Inventory Data Validation Rules
@@ -83,26 +105,6 @@ const utilities = require(".")
  ]
 }
 
-  /* ******************************
- * Check data and return errors or continue to add classification
- * ***************************** */
-validate.checkClassData = async (req, res, next) => {
-  const { classification_name } = req.body
-  let errors = []
-  errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    let nav = await utilities.getNav()
-    res.render("./inventory/add-classification", {
-      errors,
-      title: "Add Classification",
-      nav,
-      classification_name
-    })
-    return
-  }
-  next()
-}
-
 
   /* ******************************
  * Check data and return errors or continue to add vehicle
@@ -112,9 +114,15 @@ validate.checkVehData = async (req, res, next) => {
   let errors = []
   errors = validationResult(req)
   if (!errors.isEmpty()) {
+    errors = errors.array()
     let nav = await utilities.getNav()
+
+    const classificationData = await invModel.getClassifications()
+    const classifications = classificationData.rows
+
     res.render("./inventory/add-vehicle", {
       errors,
+      classifications,
       title: "Add Vehicle",
       nav,
       inv_make, 
