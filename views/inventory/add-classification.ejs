@@ -1,0 +1,13 @@
+<h1><%= title %></h1>
+
+<%- messages() %>
+
+<form method="post" action = "/inv/add-classification" class="inventory">
+    <fieldset>
+            <label>Classification Name* <input type = "text" name = "classification_name" id="classification_name" required pattern="^[A-Za-z]+$"></label>
+            <div id="required">
+                <p>Field required - must only include letters</p>
+            </div>
+    </fieldset>
+    <input type="submit" value="Add Classification">
+</form>

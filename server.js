@@ -6,24 +6,27 @@
  * Require Statements
  *************************/
 const express = require("express")
-const env = require("dotenv").config()
 const app = express()
-const static = require("./routes/static")
-const expressLayouts = require("express-ejs-layouts")
-const baseController = require("./controllers/baseController")
-const inventoryRoute = require("./routes/inventoryRoute")
-const utilities = require("./utilities/")
-const errorController = require("./controllers/errorController")
 const session = require("express-session")
+const env = require("dotenv").config()
 const pool = require('./database/')
-const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
 
+const expressLayouts = require("express-ejs-layouts")
+const baseController = require("./controllers/baseController")
+const errorController = require("./controllers/errorController")
+
+const static = require("./routes/static")
+const inventoryRoute = require("./routes/inventoryRoute")
+const accountRoute = require("./routes/accountRoute")
+const utilities = require("./utilities/")
 
 
 /* ***********************
  * Middleware
  * ************************/
+app.get("/favicon.ico", (req, res) => res.status(204).end());
+
  app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,

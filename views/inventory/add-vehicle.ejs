@@ -1,0 +1,28 @@
+<h1><%= title %></h1>
+
+<%- messages() %>
+
+<form method="post" action = "/inv/add-vehicle" class="inventory">
+    <fieldset>
+            <label for="classification_id">Classification</label>
+                <select name="classification_id" id="classification_id" required>
+                    <option value="">Select a classification</option>
+                    <% classifications.forEach(classification => { %>
+                        <option value="<%= classification.classification_id %>" 
+                            <%= classification.classification_id == classification_id ? "selected" : "" %>>
+                            <%= classification.classification_name %>
+                        </option>
+                <% }) %>
+                </select>
+            <label>Make* <input type = "text" name = "inv_make" id="inv_make" required value="<%= locals.inv_make %>"></label>
+            <label>Model* <input type = "text" name = "inv_model" id="inv_model" required value="<%= locals.inv_model %>"></label>
+            <label>Year* <input type = "text" name = "inv_year" id="inv_year" required value="<%= locals.inv_year %>"></label>
+            <label>Description* <input type = "text" name = "inv_description" id="inv_description" required value="<%= locals.inv_description %>"></label>
+            <label>Image* <input type = "text" name = "inv_image" id="inv_image" required value="<%= locals.inv_image %>"></label>
+            <label>Thumbnail* <input type = "text" name = "inv_thumbnail" id="inv_thumbnail" required value="<%= locals.inv_thumbnail %>"></label>
+            <label>Price <input type = "number" name = "inv_price" id="inv_price" required value="<%= locals.inv_price %>"></label>
+            <label>Miles <input type = "number" name = "inv_miles" id="inv_miles" required value="<%= locals.inv_miles %>"></label>
+            <label>Color <input type = "text" name = "inv_color" id="inv_color" required value="<%= locals.inv_color %>"></label>
+    </fieldset>
+    <input type="submit" value="Add Vehicle">
+</form>
