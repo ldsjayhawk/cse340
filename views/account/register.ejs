@@ -12,9 +12,9 @@
  <form action = "/account/register" method = "post" class="register">
     <fieldset>
         <legend>User Registration</legend>
-            <label>First Name* <input type = "text" name = "account_firstname" id="account_firstname" required></label>
-            <label>Last Name* <input type = "text" name = "account_lastname" id="account_lastname" required></label>
-            <label>Email* <input type = "email" name = "account_email" id="account_email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z]$" required placeholder="Enter a valid email address"></label>
+            <label>First Name* <input type = "text" name = "account_firstname" id="account_firstname" required value="<%= locals.account_firstname %>"></label>
+            <label>Last Name* <input type = "text" name = "account_lastname" id="account_lastname" required value="<%= locals.account_lastname %>"></label>
+            <label>Email* <input type = "email" name = "account_email" id="account_email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z]$" required placeholder="Enter a valid email address" value="<%= locals.account_firstname %>"></label>
             <label>Password* <input type = "password" name = "account_password" id="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"></label>
             <div id="required">
                 <p>minimum 12 chars</p>
