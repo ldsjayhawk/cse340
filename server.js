@@ -28,7 +28,9 @@ const utilities = require("./utilities/")
  * ************************/
 app.get("/favicon.ico", (req, res) => res.status(204).end());
 
- app.use(session({
+app.use(cookieParser())
+
+app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
     pool,
@@ -38,6 +40,8 @@ app.get("/favicon.ico", (req, res) => res.status(204).end());
   saveUninitialized: true,
   name: 'sessionId',
 }))
+
+app.use(utilities.checkJWTToken)
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
@@ -49,9 +53,7 @@ app.use(function(req, res, next){
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-app.use(cookieParser())
 
-app.use(utilities.checkJWTToken)
 
 /* ***********************
  * View Engine and Templates
