@@ -61,6 +61,25 @@ Util.buildClassificationGrid = async function(data){
 }
 
 /* **************************************
+* Build the classification view HTML
+* ************************************ */
+Util.buildClassificationList = async function() {
+  try {
+    const data = await invModel.getClassifications(); // fetch classifications from DB
+    let list = '<select id="classificationSelect" name="classification_id">';
+    list += '<option value="">Choose a Classification</option>';    
+    data.rows.forEach(classification => {
+      list += `<option value="${classification.classification_id}">${classification.classification_name}</option>`;
+    });
+    list += '</select>';
+    return list;
+  } catch (error) {
+    console.error('Error building classification list:', error);
+    return '<option value="">No classifications found</option>';
+  }
+};
+
+/* **************************************
 * Build the vehicle detail view HTML
 * ************************************ */
 Util.buildVehicleDetail = async function(data){

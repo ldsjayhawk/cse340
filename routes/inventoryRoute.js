@@ -36,6 +36,9 @@ router.post(
     utilities.handleErrors(invController.addNewVehicle)
 );
 
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+
 // Delete
 
 // router.get("/delete/:inv_id", invController.buildDeleteView);

@@ -455,6 +455,7 @@ footer {
   font-weight: 700;
 }
 
+#classificationSelect,
 #classification_id,
 .inventory input[type="text"],
 .inventory input[type="number"],
@@ -472,6 +473,10 @@ footer {
   font-weight: 700;
   width: 20rem;
   margin: .625rem;
+}
+
+.management p {
+  padding-left: .75rem;
 }
 
 .inventory input[type="submit"] {
@@ -519,3 +524,14 @@ footer {
   color: #F9B421;
 }
 
+#inventoryDisplay {
+  padding-left: .75rem;
+}
+
+#inventoryDisplay th {
+  text-align: left;
+}
+
+#inventoryDisplay td {
+  padding: .25rem;
+}
