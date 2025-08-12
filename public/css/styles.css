@@ -376,7 +376,6 @@ footer {
   justify-content: center;
   align-items: center;
   box-shadow: #999 10px 5px;
-  transition: width 2s height 2s;
 }
 
 .register input[type="submit"]:hover {
