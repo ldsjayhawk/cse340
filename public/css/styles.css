@@ -78,19 +78,26 @@ nav a:hover {
   color: #F9B421;
 }
 
-h1 {
+h1, h2, h3 {
   font-family: var(--heading-font);
-  color: #E0321D;
-  font-size: 1.17rem;
   font-weight: 700;
-  padding-left: 10px;
+    padding-left: 10px;
+}
+
+h1 {
+  color: #E0321D;
+  font-size: 1.5rem;
 }
 
 h2 {
-  font-family: var(--heading-font);
-  font-size: 1rem;
-  padding-left: 10px;
+  font-size: 1.17rem;
 }
+
+h3 {
+  font-size: 1rem;
+}
+
+
 
 body {
   font-family: var(--paragraph-font);
@@ -404,8 +411,17 @@ footer {
   color: #F9B421;
 }
 
-.management {
+/* .management {
   padding: 20px;
+} */
+
+.management h2,
+.management h3 {
+  padding: 1rem 0 0 1rem;
+}
+
+.management p {
+  padding-left: 30px;
 }
 
 #management-links li{
@@ -472,10 +488,6 @@ footer {
   font-weight: 700;
   width: 20rem;
   margin: .625rem;
-}
-
-.management p {
-  padding-left: .75rem;
 }
 
 .inventory input[type="submit"] {
