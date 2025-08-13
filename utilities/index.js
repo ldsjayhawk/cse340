@@ -122,11 +122,14 @@ Util.buildVehicleDetail = async function(data){
 **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
+
 /* ****************************************
 * Middleware to check token validity
 **************************************** */
 Util.checkJWTToken = (req, res, next) => {
- if (req.cookies.jwt) {
+  res.locals.loggedin = 0
+
+  if (req.cookies.jwt) {
   jwt.verify(
    req.cookies.jwt,
    process.env.ACCESS_TOKEN_SECRET,
@@ -145,16 +148,50 @@ Util.checkJWTToken = (req, res, next) => {
  }
 }
 
+
 /* ****************************************
- *  Check Login
- * ************************************ */
- Util.checkLogin = (req, res, next) => {
+*  Check Login
+* ************************************ */
+Util.checkLogin = (req, res, next) => {
   if (res.locals.loggedin) {
     next()
   } else {
     req.flash("notice", "Please log in.")
     return res.redirect("/account/login")
   }
- }
+}
+
+/* ****************************************
+*  Check Admin Account Access
+* ************************************ */
+Util.checkAdminAccess = (req, res, next) => {
+  const accountData = res.locals.accountData;
+
+  if (res.locals.loggedin) {
+    if (accountData && (accountData.account_type === "Employee" || accountData.account_type === "Admin")) {
+      return next();
+
+    } else {
+      req.flash("notice", "Access denied.");
+      return res.redirect("/account/login");
+    }
+    
+  } else {
+    req.flash("notice", "Please log in.");
+    return res.redirect("/account/login");
+  }
+};
+
+
+
+/* ****************************************
+ *  Logout and delete token
+ * ************************************ */
+Util.deleteToken = (req, res, next) => {
+  res.clearCookie("jwt")
+  res.locals.loggedin = 0
+  // req.flash("Successfully logged out")
+  res.redirect("/")
+}
 
 module.exports = Util

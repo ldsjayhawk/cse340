@@ -11,6 +11,9 @@ router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.a
 // Route to build account view
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
+// Route to build account view
+router.get("/logout", utilities.deleteToken);
+
 // Route to build registration view
 router.get("/register", utilities.handleErrors(accountController.buildRegistration));
 

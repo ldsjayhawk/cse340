@@ -41,10 +41,12 @@ app.use(session({
   name: 'sessionId',
 }))
 
-app.use(utilities.checkJWTToken)
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
+
+app.use(utilities.checkJWTToken)
+
 app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
