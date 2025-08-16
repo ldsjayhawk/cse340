@@ -76,6 +76,52 @@ validate.checkRegData = async (req, res, next) => {
   next()
 }
 
+/*  **********************************
+*  Update Data Validation Rules
+* ********************************* */
+validate.updateRules = () => {
+  return [
+// valid email is required and cannot already exist in the DB
+    body("account_firstname")
+    .trim()
+    .notEmpty()
+    .withMessage("First name is required."),
+
+    body("account_lastname")
+    .trim()
+    .notEmpty()
+    .withMessage("Last name is required."),
+
+    body("account_email")
+    .trim()
+    .notEmpty()
+    .isEmail()
+    .normalizeEmail() // refer to validator.js docs
+    .withMessage("A valid email is required."),
+  ]
+}
+
+  /* ******************************
+ * Check data and return errors or continue to login
+ * ***************************** */
+validate.checkLoginData = async (req, res, next) => {
+  const { account_email } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/login", {
+      errors,
+      title: "Login",
+      nav,
+      account_firstname,
+      account_lastname,
+      account_email,
+    })
+    return
+  }
+  next()
+}
   /*  **********************************
   *  Login Data Validation Rules
   * ********************************* */
@@ -84,7 +130,6 @@ validate.checkRegData = async (req, res, next) => {
 // valid email is required and cannot already exist in the DB
       body("account_email")
       .trim()
-      .escape()
       .notEmpty()
       .isEmail()
       .normalizeEmail() // refer to validator.js docs
@@ -106,18 +151,19 @@ validate.checkRegData = async (req, res, next) => {
   }
 
   /* ******************************
- * Check data and return errors or continue to registration
+ * Check update data
  * ***************************** */
-validate.checkLoginData = async (req, res, next) => {
-  const { account_email } = req.body
+validate.checkUpdateData = async (req, res, next) => {
+  const { account_id, account_firstname, account_lastname, account_email } = req.body
   let errors = []
   errors = validationResult(req)
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
-    res.render("account/login", {
+    res.render("account/update", {
       errors,
-      title: "Login",
+      title: "Update Account",
       nav,
+      account_id,
       account_firstname,
       account_lastname,
       account_email,
@@ -126,5 +172,43 @@ validate.checkLoginData = async (req, res, next) => {
   }
   next()
 }
+
+  /*  **********************************
+  *  Update Password Validation Rules
+  * ********************************* */
+  validate.updatedPasswordRules = () => {
+    return [
+      // password is required and must be strong password
+      body("account_password")
+        .trim()
+        .notEmpty()
+        .isStrongPassword({
+          minLength: 12,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+        })
+        .withMessage("Password does not meet requirements."),
+    ]
+  }
+
+
+    /* ******************************
+ * Check update password
+ * ***************************** */
+validate.checkUpdatePassword = async (req, res, next) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    return res.render("account/update", {
+      errors: errors.array(),
+      title: "Update Account",
+      nav,
+    })
+  }
+  next()
+}
+      
 
 module.exports = validate

@@ -76,7 +76,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/account", accountRoute)
 
 // Inventory route
-app.use("/inv", inventoryRoute)
+app.use("/inv/management", inventoryRoute)
 
 // Assignment 3, Task 3 route
 app.use("/", utilities.handleErrors(errorController.createError))
@@ -89,6 +89,7 @@ app.use(async (req, res, next) => {
 app.use(async (req, res, next) => {
   next({status: 500, message: 'Somebody have a roadmap?  We seem to be lost...'})
 })
+
 
 /* ***********************
 * Express Error Handler
