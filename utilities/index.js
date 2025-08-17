@@ -188,11 +188,24 @@ Util.checkAdminAccess = (req, res, next) => {
  *  Logout and delete token
  * ************************************ */
 Util.deleteToken = (req, res, next) => {
-  res.clearCookie("jwt")
-  // res.clearCookie() -- clear session id
-  res.locals.loggedin = 0
-  // req.flash("Successfully logged out")
-  res.redirect("/")
+ if (req.session) {
+    res.clearCookie("jwt")
+    res.clearCookie("sessionId")
+    res.locals.loggedin = 0
+    req.flash("notice", "Successfully logged out")
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error logging out:", err)
+        return res.redirect("/")
+      }
+    res.redirect("/")
+    })
+  } else {
+    res.clearCookie("jwt")
+    res.clearCookie("sessionId")
+    res.locals.loggedin = 0
+    res.redirect("/")
+  }
 }
 
 module.exports = Util
