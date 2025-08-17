@@ -138,8 +138,11 @@ async function buildAccountUpdate (req, res, next) {
 
   const data = await accountModel.getAccountById(account_id)
 
-
-  if (data) {
+if (data) {
+    const errors = {
+      isEmpty: () => true,
+      array: () => []
+    };
     res.render("./account/update", {
       title: "Update Account",
       nav,
@@ -147,7 +150,7 @@ async function buildAccountUpdate (req, res, next) {
       account_firstname: data.account_firstname,  
       account_lastname: data.account_lastname,
       account_email: data.account_email,
-      errors: []
+      errors
     })
   } else {
     req.flash("notice", "Sorry, cannot locate the account.")
@@ -159,62 +162,68 @@ async function buildAccountUpdate (req, res, next) {
 *  Process account update 
 * *************************************** */
 async function processAccountUpdate(req, res, next) {
-  let nav = await utilities.getNav()
-  const { account_id, account_firstname, account_lastname, account_email } = req.body
+  try {
+    let nav = await utilities.getNav();
+    const { account_id, account_firstname, account_lastname, account_email } = req.body;
+    const errors = [];
 
-  
-  const data = await accountModel.updateAccount(
-    account_id, 
-    account_firstname, 
-    account_lastname, 
-    account_email
-  )
+    const data = await accountModel.updateAccount(
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email
+    );
 
-  if (data) {
-    req.flash(
-      "notice",
-      `Account has been updated.`
-    )
-    res.status(201).render("./account/management", {
-      title: "Update Account",
-      nav,
-      account_id, 
-      account_firstname, 
-      account_lastname, 
-      account_email, 
-      errors: errors
-    })
-  } else {
-    req.flash("notice", "Sorry, updating the account has failed.")
-    res.status(501).render("./account/update", {
-      title: "Update Account",
-      nav,
-      errors: errors,
-      account_id, 
-      account_firstname, 
-      account_lastname, 
-      account_email, 
-    })
+    if (data) {
+      req.flash("notice", "Account has been updated.");
+      res.status(200).render("./account/management", {
+        title: "Update Account",
+        nav,
+        account_id,
+        account_firstname,
+        account_lastname,
+        account_email,
+        errors
+      });
+    } else {
+      req.flash("notice", "Sorry, updating the account has failed.");
+      res.status(500).render("./account/update", {
+        title: "Update Account",
+        nav,
+        errors,
+        account_id,
+        account_firstname,
+        account_lastname,
+        account_email
+      });
+    }
+  } catch (err) {
+    next(err); 
   }
 }
+
 
 /* ****************************************
 *  Process password update 
 * *************************************** */
 async function processPasswordUpdate(req, res, next){
   let nav = await utilities.getNav()
-  const { account_id, account_password } = req.body
+  const { account_id } = req.body;
+  const errors = []
 
   // Hash the password before storing
-  let hashedPassword
   try {
+    let hashedPassword
     hashedPassword = bcrypt.hashSync(account_password, 10)
-  } catch (error) {
+  } catch (error) { 
     req.flash("notice", "Sorry, updating the password has failed.")
     return res.status(501).render("./account/update", {
       title: "Update Account",
       nav,
-      errors: null,
+      errors,
+      account_firstname: accountData.account_firstname,
+      account_lastname: accountData.account_lastname,
+      account_email: accountData.account_email
     })
   }
 
@@ -231,12 +240,18 @@ async function processPasswordUpdate(req, res, next){
     res.status(201).render("./account/management", {
       title: "Login",
       nav,
+      errors
     })
   } else {
     req.flash("notice", "Sorry, the registration failed.")
     return res.status(501).render("./account/update", {
       title: "Update Account",
       nav,
+      errors,
+      account_id,
+      account_firstname: accountData.account_firstname,
+      account_lastname: accountData.account_lastname,
+      account_email: accountData.account_email
     })
   }
 }

@@ -181,7 +181,8 @@ validate.checkUpdateData = async (req, res, next) => {
       // password is required and must be strong password
       body("account_password")
         .trim()
-        .notEmpty()
+        .notEmpty().withMessage("Password required.")
+        .bail()
         .isStrongPassword({
           minLength: 12,
           minLowercase: 1,
@@ -198,13 +199,20 @@ validate.checkUpdateData = async (req, res, next) => {
  * Check update password
  * ***************************** */
 validate.checkUpdatePassword = async (req, res, next) => {
+  const { account_id, account_firstname, account_lastname, account_email } = req.body
+
   const errors = validationResult(req)
+
   if (!errors.isEmpty()) {
-    let nav = await utilities.getNav()
+    const nav = await utilities.getNav()
     return res.render("account/update", {
-      errors: errors.array(),
+      errors: errors,
       title: "Update Account",
       nav,
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
     })
   }
   next()

@@ -189,6 +189,7 @@ Util.checkAdminAccess = (req, res, next) => {
  * ************************************ */
 Util.deleteToken = (req, res, next) => {
   res.clearCookie("jwt")
+  // res.clearCookie() -- clear session id
   res.locals.loggedin = 0
   // req.flash("Successfully logged out")
   res.redirect("/")
