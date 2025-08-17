@@ -76,7 +76,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/account", accountRoute)
 
 // Inventory route
-app.use("/inv/management", inventoryRoute)
+app.use("/inv", inventoryRoute)
 
 // Assignment 3, Task 3 route
 app.use("/", utilities.handleErrors(errorController.createError))
